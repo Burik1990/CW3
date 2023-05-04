@@ -1,6 +1,8 @@
 import pytest
 
-from utils import get_data, filter_data
+from utils import get_data, filter_data, format_date, sort_data
+
+
 @pytest.fixture
 def data():
   return get_data()
@@ -119,5 +121,27 @@ def test_filter_data(data):
             "to": "Счет 11776614605963066702"
         }
     ]
-    #data = get_data()
     assert filter_data(data) == expected_result
+
+def test_format_date(data):
+    expected_result = ['\n'
+ '26.08.2019 Перевод организации\n'
+ 'Maestro 1596 83** **** 5199 -> Счет **9589\n'
+ '31957.58 руб.\n'
+ '        ',
+ '\n'
+ '03.07.2019 Перевод организации\n'
+ 'MasterCard 7158 30** **** 6758 -> Счет **5560\n'
+ '8221.37 USD\n'
+ '        ',
+ '\n'
+ '30.06.2018 Перевод организации\n'
+ 'Счет 7510 68** **** 6952 -> Счет **6702\n'
+ '9824.07 USD\n'
+ '        ',
+ '\n'
+ '12.09.2018 Перевод организации\n'
+ 'Visa Platinum 1246 37** **** 3588 -> Счет **1657\n'
+ '67314.70 руб.\n'
+ '        ']
+    assert format_date(data) == expected_result
