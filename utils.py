@@ -36,7 +36,10 @@ def format_date(data):
             sender = row['from'].split()
             sender_bill = sender.pop(-1)
             sender_info = " ".join(sender)
-            sender_bill = f'{sender_bill[:4]} {sender_bill[4:6]}** **** {sender_bill[-4:]}'
+            if sender_info == 'Счет':
+                sender_bill = f"**{sender_bill[-4:]}"
+            else:
+                sender_bill = f'{sender_bill[:4]} {sender_bill[4:6]}** **** {sender_bill[-4:]}'
         else:
             sender_info = 'Новый счет'
             sender_bill = ''
@@ -59,5 +62,3 @@ def format_date(data):
         ''')
     return formatted_data
 
-#добавить если не карта а счет кодировку на **7878
-#И вывод суммы транзакции
